@@ -89,6 +89,8 @@ namespace AIProject2
 
             quayquay = null;
             quayquay = new Queue<int>();
+            StringBuilder allTheirPowersCombined = new StringBuilder();
+            allTheirPowersCombined.Append(input.ToString());
 
             foreach (var garden in gardens)
             {
@@ -111,6 +113,7 @@ namespace AIProject2
                         quayquay.Enqueue(q + boardWidth);
 
                     hold[q] = '~';
+                    allTheirPowersCombined[q] = '~';
                 }
 
                 int gardenCnt = 0;
@@ -122,6 +125,14 @@ namespace AIProject2
                         gardenCnt++;
                         if (i != garden.Item1 && gardens.Exists(x => x.Item1 == i))
                             pointCntr++;
+                    }
+                }
+                
+                for (int i = 0; i < allTheirPowersCombined.Length; i++)
+                {
+                    if (allTheirPowersCombined[i] == '0')
+                    {
+                        pointCntr++;
                     }
                 }
                 /*
@@ -244,7 +255,7 @@ Console.WriteLine("Sp0lsion\n");
 
         private void endOfDays()
         {
-            Console.WriteLine(chosenOne.Item1);
+            Console.WriteLine(chosenOne);
             Console.Beep(1408, 250);
         }
 
@@ -267,13 +278,14 @@ Console.WriteLine("Sp0lsion\n");
 
                 population.Add(stork(population[99 - a].Item1, population[99 - b].Item1));
 
-                if(cntr++ == 1000)
+
+                if(cntr++ == 10000)
                 {
                     cntr = 0;
-                    Console.WriteLine(population[0]);
+                    Console.WriteLine(population[100]);
                 }
 
-                population.Sort((x, y) =>x.Item2.CompareTo(y.Item2));
+                population.Sort((x, y) => x.Item2.CompareTo(y.Item2));
 
                 population.RemoveAt(100);
 
