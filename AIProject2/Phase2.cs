@@ -18,12 +18,16 @@ namespace AIProject2
         private List<Tuple<int,int>> gardens;
         private Tuple<StringBuilder, int> chosenOne;
 
+        private int cntr;
+
         public Phase2()
         {
             fitnessCounter = alpacalypseCntr = 0;
             rando = new Random();
             population = new List<Tuple<StringBuilder,int>>();
             gardens = new List<Tuple<int, int>>();
+
+            cntr = 0;
         }
 
         private int unnaturalSelection(StringBuilder input)
@@ -45,7 +49,7 @@ namespace AIProject2
             for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '1'
-                    && !(i % boardWidth == boardWidth-1 || i > input.Length - 1 - boardWidth)
+                    && !(i % boardWidth == boardWidth - 1 || i > input.Length - 1 - boardWidth)
                     && input[i + 1] == '1'
                     && input[i + 5] == '1'
                     && input[i + 6] == '1')
@@ -73,13 +77,13 @@ namespace AIProject2
                 if (!(q > input.Length - 1 - boardWidth) && hold[q + boardWidth] == '1')
                     quayquay.Enqueue(q + boardWidth);
 
-                hold[q++ ] = '0';
+                hold[q++] = '0';
             }
 
             for (int i = 0; i < input.Length; i++)
                 if (hold[i] == '1')
                 {
-                    pointCntr++;
+                    pointCntr += 2;
                     break;
                 }
 
@@ -120,14 +124,14 @@ namespace AIProject2
                             pointCntr++;
                     }
                 }
-
+                /*
                 Console.WriteLine(hold.ToString(0, 5));
                 Console.WriteLine(hold.ToString(5, 5));
                 Console.WriteLine(hold.ToString(10, 5));
                 Console.WriteLine(hold.ToString(15, 5));
                 Console.WriteLine(hold.ToString(20, 5));
                 Console.WriteLine();
-
+                */
                 pointCntr += garden.Item2 > gardenCnt ? (garden.Item2 - gardenCnt) * 2 : gardenCnt - garden.Item2;
             }
 
@@ -149,6 +153,9 @@ namespace AIProject2
                 }
             }
 
+            foreach (var gen in gardens)
+                Console.WriteLine(gen);
+
             for (int i = 0; i < 100; i++)
             {
                 StringBuilder temp = new StringBuilder();
@@ -156,7 +163,7 @@ namespace AIProject2
                     temp.Append(rando.Next(2));
 
                 foreach (var gard in gardens)
-                    inputBoard[gard.Item1] = '0';
+                    temp[gard.Item1] = '0';
 
                 population.Add(Tuple.Create(temp, unnaturalSelection(temp)));
             }
@@ -167,6 +174,7 @@ namespace AIProject2
             {
                 Console.WriteLine("{0}", q.ToString());
             }
+            Console.WriteLine();
         }
 
         private Tuple<StringBuilder, int> stork(StringBuilder a, StringBuilder b)
@@ -205,7 +213,7 @@ if(blep == 30)
         {
             var hold = pop[0];
 
-            if (hold.Item1.Equals(chosenOne.Item1))
+            if (!object.ReferenceEquals(chosenOne,null) && hold.Item1.Equals(chosenOne.Item1))
                 alpacalypseCntr++;
             else
                 alpacalypseCntr = 0;
@@ -248,10 +256,21 @@ Console.WriteLine("Sp0lsion\n");
 
             while (true)
             {
+                if (population[0].Item2 == 0)
+                {
+                    chosenOne = population[0];
+                    endOfDays();
+                }
                 int a = Math.Max(rando.Next(100), rando.Next(100));
                 int b = Math.Max(rando.Next(100), rando.Next(100));
 
                 population.Add(stork(population[99 - a].Item1, population[99 - b].Item1));
+
+                if(cntr++ == 100)
+                {
+                    cntr = 0;
+                    Console.WriteLine(population[0]);
+                }
 
                 population.Sort((x, y) =>x.Item2.CompareTo(y.Item2));
 
@@ -266,6 +285,8 @@ Console.WriteLine("Sp0lsion\n");
 
             }
             timer.Stop();
+
+            Console.WriteLine(Convert.ToString(timer.Elapsed));
 
             endOfDays();
         }
