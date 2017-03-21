@@ -204,7 +204,7 @@ if(blep == 30)
 }
 */
             foreach (var gard in gardens)
-                inputBoard[gard.Item1] = '0';
+                kid[gard.Item1] = '0';
 
             return Tuple.Create(kid, unnaturalSelection(kid));
         }
@@ -259,14 +259,15 @@ Console.WriteLine("Sp0lsion\n");
                 if (population[0].Item2 == 0)
                 {
                     chosenOne = population[0];
-                    endOfDays();
+                    break;
                 }
+
                 int a = Math.Max(rando.Next(100), rando.Next(100));
                 int b = Math.Max(rando.Next(100), rando.Next(100));
 
                 population.Add(stork(population[99 - a].Item1, population[99 - b].Item1));
 
-                if(cntr++ == 100)
+                if(cntr++ == 1000)
                 {
                     cntr = 0;
                     Console.WriteLine(population[0]);
