@@ -6,25 +6,26 @@ using System.Text;
 
 namespace AIProject2
 {
-    class Phase2
+    class Phase3
     {
         private int fitnessCounter;
         private int alpacalypseCntr;
         private int boardWidth;
         private Random rando;
         private StringBuilder inputBoard;
-        private List<Tuple<StringBuilder,int>> population;
-        private List<Tuple<int,int>> gardens;
+        private List<Tuple<StringBuilder, int>> population;
+        private List<Tuple<int, int>> gardens;
         private Tuple<StringBuilder, int> chosenOne;
 
         private int cntr;
 
-        public Phase2()
+        public Phase3()
         {
             fitnessCounter = alpacalypseCntr = 0;
             rando = new Random();
-            population = new List<Tuple<StringBuilder,int>>();
+            population = new List<Tuple<StringBuilder, int>>();
             gardens = new List<Tuple<int, int>>();
+            chosenOne = Tuple.Create(new StringBuilder("0"), 37);
 
             cntr = 0;
         }
@@ -35,7 +36,6 @@ namespace AIProject2
              * stranded filled +2 :)
              * touching gardens +2 :)
              * gardens wrong size +difference if over x1  if smaller x2 :)
-             * There are no open gardens with no roots :)
              *
              * Things for later?
              * counts 2x2 squares separately
@@ -129,7 +129,7 @@ namespace AIProject2
                         }
                     }
                 }
-
+                
                 pointCntr += garden.Item2 > gardenCnt ? (garden.Item2 - gardenCnt) * 2 : gardenCnt - garden.Item2;
             }
 
@@ -158,7 +158,7 @@ namespace AIProject2
             inputBoard = board;
             boardWidth = width;
 
-            for (int i=0; i< board.Length; i++)
+            for (int i = 0; i < board.Length; i++)
             {
                 if (inputBoard[i] != '0')
                 {
@@ -201,32 +201,34 @@ namespace AIProject2
                 if (rando.Next(200) == 0)
                     kid[i] = kid[i] == '1' ? '0' : '1';
             }
-/*
-Console.WriteLine("{0} {1}",kid.ToString(), unnaturalSelection(kid.ToString()));
+            /*
+            Console.WriteLine("{0} {1}",kid.ToString(), unnaturalSelection(kid.ToString()));
 
-blep++;
-if(blep == 30)
-{
-        Console.WriteLine("---------------------------");
-    foreach (var q in population)
-    {
-        Console.WriteLine("{0} {1}", q.ToString(), unnaturalSelection(q.ToString()));
-    }
-    Console.WriteLine("---------------------------");
-                blep = 0;
-}
-*/
+            blep++;
+            if(blep == 30)
+            {
+                    Console.WriteLine("---------------------------");
+                foreach (var q in population)
+                {
+                    Console.WriteLine("{0} {1}", q.ToString(), unnaturalSelection(q.ToString()));
+                }
+                Console.WriteLine("---------------------------");
+                            blep = 0;
+            }
+            */
             foreach (var gard in gardens)
                 kid[gard.Item1] = '0';
 
             return Tuple.Create(kid, unnaturalSelection(kid));
         }
 
-        private void giantMeteor(List<Tuple<StringBuilder,int>> pop)
+        private void giantMeteor(List<Tuple<StringBuilder, int>> pop)
         {
             var hold = pop[0];
 
-            if (!object.ReferenceEquals(chosenOne,null) && hold.Item1.Equals(chosenOne.Item1))
+            daggerBear(1);
+
+            if (!object.ReferenceEquals(chosenOne, null) && hold.Item1.Equals(chosenOne.Item1))
                 alpacalypseCntr++;
             else
                 alpacalypseCntr = 0;
@@ -249,14 +251,15 @@ if(blep == 30)
             chosenOne = hold;
 
             population.Sort((a, b) => a.Item2.CompareTo(b.Item2));
-/*
-Console.WriteLine("Sp0lsion\n");
-*/
+            /*
+            Console.WriteLine("Sp0lsion\n");
+            */
             Console.Beep();
         }
 
         private void endOfDays()
         {
+            daggerBear();
             Console.WriteLine(chosenOne);
             Console.Beep(1408, 250);
         }
@@ -281,7 +284,7 @@ Console.WriteLine("Sp0lsion\n");
                 population.Add(stork(population[99 - a].Item1, population[99 - b].Item1));
 
 
-                if(cntr++ == 10000)
+                if (cntr++ == 10000)
                 {
                     cntr = 0;
                     Console.WriteLine(population[100]);
@@ -304,6 +307,47 @@ Console.WriteLine("Sp0lsion\n");
             Console.WriteLine(Convert.ToString(timer.Elapsed));
 
             endOfDays();
+        }
+
+        public void daggerBear(int times =3)
+        {
+            for (int q = 0; q < times; q++)
+            {
+                int bestFit = population[q].Item2;
+                var temp = new StringBuilder(population[q].Item1.ToString());
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    if (bestFit == 0)
+                    {
+                        chosenOne = Tuple.Create(temp, bestFit);
+                        break;
+                    }
+
+                    if (gardens.Exists(x => x.Item1 == i))
+                        continue;
+
+                    temp[i] = temp[i] == '1' ? '0' : '1';
+
+                    int hold = unnaturalSelection(temp);
+                    if (hold < bestFit)
+                        bestFit = hold;
+                    else
+                        temp[i] = temp[i] == '1' ? '0' : '1';
+                }
+
+                if (bestFit < population[q].Item2)
+                {
+                    population.Add(Tuple.Create(temp, unnaturalSelection(temp)));
+
+                    population.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+
+                    population.RemoveAt(100);
+                }
+
+                if (chosenOne.Item2 == 0)
+                    break;
+
+            }
         }
     }
 }

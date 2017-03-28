@@ -4,3 +4,9 @@ C:\Users\Korbin\Documents\AI Projects\AIProject2\AIProject2\bin\Debug\AIProject2
 C:\Users\Korbin\Documents\AI Projects\AIProject2\AIProject2\obj\Debug\AIProject2.csprojResolveAssemblyReference.cache
 C:\Users\Korbin\Documents\AI Projects\AIProject2\AIProject2\obj\Debug\AIProject2.exe
 C:\Users\Korbin\Documents\AI Projects\AIProject2\AIProject2\obj\Debug\AIProject2.pdb
+C:\Users\Virginia\Desktop\Code\aiProject2\AIProject2\bin\Debug\AIProject2.exe.config
+C:\Users\Virginia\Desktop\Code\aiProject2\AIProject2\obj\Debug\AIProject2.exe
+C:\Users\Virginia\Desktop\Code\aiProject2\AIProject2\obj\Debug\AIProject2.pdb
+C:\Users\Virginia\Desktop\Code\aiProject2\AIProject2\bin\Debug\AIProject2.exe
+C:\Users\Virginia\Desktop\Code\aiProject2\AIProject2\bin\Debug\AIProject2.pdb
+C:\Users\Virginia\Desktop\Code\aiProject2\AIProject2\obj\Debug\AIProject2.csprojResolveAssemblyReference.cache
