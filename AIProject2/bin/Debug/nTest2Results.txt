@@ -1,0 +1,20 @@
+nTest2.txt
+
+Input Board:
+*****
+3*6**
+*****
+**1*2
+*****
+
+Final Board:
+#****
+*#**#
+*###*
+*#*#*
+#####
+
+02:36:11.7904373
+Problems: 2
+Fitness Function Called: 28683053
+Exhaustive Searches:    33554432

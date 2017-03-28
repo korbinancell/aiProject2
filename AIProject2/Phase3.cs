@@ -11,7 +11,9 @@ namespace AIProject2
         private int fitnessCounter;
         private int alpacalypseCntr;
         private int boardWidth;
+        private string filename;
         private Random rando;
+        Stopwatch timer = new Stopwatch();
         private StringBuilder inputBoard;
         private List<Tuple<StringBuilder, int>> population;
         private List<Tuple<int, int>> gardens;
@@ -152,10 +154,11 @@ namespace AIProject2
             return pointCntr;
         }
 
-        public void Genenis(int width, StringBuilder board)
+        public void Genenis(int width, StringBuilder board, string name)
         {
             inputBoard = board;
             boardWidth = width;
+            filename = name;
 
             for (int i = 0; i < board.Length; i++)
             {
@@ -260,14 +263,15 @@ namespace AIProject2
         private void endOfDays()
         {
             daggerBear();
+            if (population[0].Item2 < chosenOne.Item2)
+                chosenOne = population[0];
             Console.WriteLine(chosenOne);
             Console.Beep(1408, 250);
+            printOut();
         }
 
         public void circleOfLife()
         {
-            Stopwatch timer = new Stopwatch();
-
             timer.Start();
 
             while (true)
@@ -348,6 +352,46 @@ namespace AIProject2
                     break;
 
             }
+        }
+
+        private void printOut()
+        {
+            string firstBoard = "", finalBoard = "";
+            var txt = System.IO.Path.GetFileNameWithoutExtension(@filename);
+            txt += "Results.txt";
+
+            for(int i=0;i<inputBoard.Length;i++)
+            {
+                if (i % boardWidth == 0)
+                    firstBoard += "\n";
+                if (inputBoard[i] == '0')
+                    firstBoard += ((char)42);
+                else
+                    firstBoard += inputBoard[i];
+            }
+
+            for (int i = 0; i < inputBoard.Length; i++)
+            {
+                if (i % boardWidth == 0)
+                    finalBoard += "\n";
+                if (gardens.Exists(x => x.Item1 == i))
+                    firstBoard += inputBoard[i];
+                else if (chosenOne.Item1[i] == '1')
+                    finalBoard += ((char)35);
+                else if(chosenOne.Item1[i] == '0')
+                    finalBoard += ((char)42);
+            }
+
+            System.IO.File.WriteAllText(@txt, filename + "\n\n" +
+                                             "Input Board:" +
+                                             firstBoard + "\n\n" +
+                                             "Final Board:" +
+                                             finalBoard + "\n\n" +
+                                             Convert.ToString(timer.Elapsed) + "\n" +
+                                             "Problems: " + population[0].Item2 + "\n" +
+                                             "Fitness Function Called: " + fitnessCounter + "\n" +
+                                             "Exhaustive Searches:    " + (Math.Pow(2, boardWidth * boardWidth)));
+
         }
     }
 }

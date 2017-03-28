@@ -1,0 +1,20 @@
+
+
+Input Board:
+°°°°°
+3°6°°
+°°°°°
+°°1°2
+°°°°°
+
+
+
+
+
+
+Final Board:°°°°°3°6°°°°°°°°°²°2°°°°°
+
+00:00:20.4240826
+Problems: 0
+Fitness Function Called: 3490037
+Exhaustive Searches: 33554432
