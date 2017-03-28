@@ -12,7 +12,7 @@ namespace AIProject2
         {
             /*
             int capacity;
-            string filename = "k05.csv";
+            string filename = "k10.csv";
             List<ReadCSV.item> knapsack;
             ReadCSV parse = new ReadCSV();
             Phase1 knap = new Phase1();
@@ -26,7 +26,7 @@ namespace AIProject2
             Console.WriteLine();
             knap.circleOfLife();
             */
-
+            
             Phase2 nura = new Phase2();
 
             StringBuilder sb = new StringBuilder();

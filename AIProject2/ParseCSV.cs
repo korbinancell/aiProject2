@@ -44,5 +44,22 @@ namespace AIProject2
 
             return Tuple.Create(capacity, knapsack);
         }
+
+        public Tuple<StringBuilder, int> readNurikabe(string name)
+        {
+            int width;
+            StringBuilder puzzle = new StringBuilder();
+
+            string[] lines = System.IO.File.ReadAllLines(@name);
+
+            width = lines[0].Length;
+
+            foreach (var line in lines)
+                puzzle.Append(line);
+
+            Console.WriteLine("{0}, {1}", puzzle.ToString(), width);
+
+            return Tuple.Create(puzzle, width);
+        }
     }
 }

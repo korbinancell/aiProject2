@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AIProject2
 {
@@ -36,6 +35,7 @@ namespace AIProject2
              * stranded filled +2 :)
              * touching gardens +2 :)
              * gardens wrong size +difference if over x1  if smaller x2 :)
+             * There are no open gardens with no roots :)
              *
              * Things for later?
              * counts 2x2 squares separately
