@@ -375,7 +375,7 @@ namespace AIProject2
                 if (i % boardWidth == 0)
                     finalBoard += "\n";
                 if (gardens.Exists(x => x.Item1 == i))
-                    firstBoard += inputBoard[i];
+                    finalBoard += inputBoard[i];
                 else if (chosenOne.Item1[i] == '1')
                     finalBoard += ((char)35);
                 else if(chosenOne.Item1[i] == '0')
