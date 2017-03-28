@@ -25,7 +25,6 @@ namespace AIProject2
             rando = new Random();
             population = new List<Tuple<StringBuilder, int>>();
             gardens = new List<Tuple<int, int>>();
-            chosenOne = Tuple.Create(new StringBuilder("0"), 37);
 
             cntr = 0;
         }
@@ -182,6 +181,7 @@ namespace AIProject2
             }
 
             population.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+            chosenOne = Tuple.Create(new StringBuilder(population[0].Item1.ToString()), population[0].Item2);
 
             foreach (var q in population)
             {
