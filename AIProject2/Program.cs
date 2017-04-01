@@ -34,13 +34,17 @@ namespace AIProject2
             nura.Genenis(5, sb);
             nura.circleOfLife();
              */
-            String filename = "nTest2.txt";
+
+            Console.WriteLine("Enter filename (nTest2.txt is one already in there)");
+            String filename = Console.ReadLine();   //"nTest2.txt";
             ReadCSV parse = new ReadCSV();
             Phase3 nura = new Phase3();
             var puzzle = parse.readNurikabe(filename);
 
             nura.Genenis(puzzle.Item2, puzzle.Item1, filename);
             nura.circleOfLife();
+
+            Console.ReadKey();
         }
     }
 }

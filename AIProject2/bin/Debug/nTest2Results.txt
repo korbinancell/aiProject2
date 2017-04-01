@@ -5,16 +5,16 @@ Input Board:
 3*6**
 *****
 **1*2
-*****3612
+*****
 
 Final Board:
 ##***
-#**
+3#6**
 *####
-*##
+*#1#2
 ####*
 
-00:00:44.7903331
+00:00:00.3165189
 Problems: 0
-Fitness Function Called: 5235056
+Fitness Function Called: 5955
 Exhaustive Searches:    33554432
